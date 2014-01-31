@@ -2,11 +2,12 @@ var main = (function() {
   var lisArray = getAnimations();
 
   function getAnimations() {
-    var lis = document.getElementsByTagName('li'),
-        lisArray = [],
-        numberOfAnimations = 0,
-        i = lis.length - 1,
-        li;
+    var lis, lisArray, numberOfAnimations, i, li;
+
+    lis = document.getElementsByTagName('li');
+    lisArray = [];
+    numberOfAnimations = 0;
+    i = lis.length - 1;
 
     do {
       li = lis[i];
@@ -23,36 +24,44 @@ var main = (function() {
     return lisArray;
   }
 
-  function countBigFrames() {
-    var numberOfBigFrames = 0,
-        i = lisArray.length - 1,
-        li;
+  function recalculateBorders() {
+    var i, li;
+
+    i = lisArray.length - 1;
 
     do {
       li = lisArray[i];
 
-      li.style['border-width'] = Math.floor((Math.random()*2)+1) + 'px';
-
-  /*    if (li.offsetWidth > 27) {
-        numberOfBigFrames++;
-      }*/
+      if (Math.random() * 2 % 2 >= 1) {
+        li.classList.add('thick');
+      }
+      else {
+        li.classList.remove('thick');
+      }
     } while (i--);
+  }
 
+  function countBigFrames() {
+    var numberOfBigFrames = document.querySelectorAll('li.lefmost, li.rightmost, li.thick').length;
     console.log('numberOfBigFrames: ' + numberOfBigFrames);
   }
 
   function setupEvents() {
-    var i = lisArray.length - 1,
-        li;
+    var i, li;
+
+    i = lisArray.length - 1;
 
     do {
       li = lisArray[i];
 
       li.addEventListener('click', function(e) {
-        if (e.currentTarget.className !== 'happy') {
+        var el = e.currentTarget;
+
+        if (el.className !== 'happy') {
           alert("Removing... Trust me, it will be removed.");
 
-          e.currentTarget.parentNode.removeChild(e.currentTarget);
+          el.parentNode.removeChild(el);
+          recalculateBorders();
           countBigFrames();
 
           alert("Removed!");
@@ -69,6 +78,7 @@ var main = (function() {
   return {
     initialize: function() {
       setupEvents();
+      recalculateBorders();
       countBigFrames();
     }
   };

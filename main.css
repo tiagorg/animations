@@ -6,8 +6,11 @@ li {
   float: left;
   margin: 4px;
   padding: 4px;
-  border-style: solid;
-  border-color: black;
+  border: 1px solid black;
+}
+
+li.thick {
+  border-width: 2px;
 }
 
 .bottom {
