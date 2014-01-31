@@ -2,7 +2,7 @@ ul {
   font-family: sans-serif;
 }
 
-.element {
+li {
   float: left;
   margin: 4px;
   padding: 4px;
