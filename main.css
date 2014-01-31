@@ -1,0 +1,15 @@
+ul {
+  font-family: sans-serif;
+}
+
+.element {
+  float: left;
+  margin: 4px;
+  padding: 4px;
+  border-style: solid;
+  border-color: black;
+}
+
+.bottom {
+  clear: both;
+}
