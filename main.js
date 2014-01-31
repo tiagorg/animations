@@ -43,21 +43,15 @@ var main = (function() {
 
   function countBigFrames() {
     var numberOfBigFrames = document.querySelectorAll('li.lefmost, li.rightmost, li.thick').length;
-    console.log('numberOfBigFrames: ' + numberOfBigFrames);
+    console.log('number of big frames: ' + numberOfBigFrames);
   }
 
-  function setupEvents() {
-    var i, li;
+  function setupEvent() {
+    document.getElementById('content').addEventListener('click', function(e) {
+      var el = e.target;
 
-    i = lisArray.length - 1;
-
-    do {
-      li = lisArray[i];
-
-      li.addEventListener('click', function(e) {
-        var el = e.currentTarget;
-
-        if (el.className !== 'happy') {
+      if (el.tagName === 'LI') {
+        if (!el.classList.contains('happy')) {
           alert("Removing... Trust me, it will be removed.");
 
           el.parentNode.removeChild(el);
@@ -71,13 +65,13 @@ var main = (function() {
 
         e.preventDefault();
         e.stopPropagation();
-      });
-    } while (i--);
+      }
+    });
   }
 
   return {
     initialize: function() {
-      setupEvents();
+      setupEvent();
       recalculateBorders();
       countBigFrames();
     }
